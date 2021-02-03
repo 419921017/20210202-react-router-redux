@@ -7,21 +7,24 @@ import { ConnectedRouter } from 'connected-react-router';
 import './index.css';
 import Home from './views/Home';
 import Counter from './views/Counter';
-import store from './store';
+import { store, persistor } from './store';
 import history from './store/history';
+import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <>
-          <Link to="/">Home</Link>
-          <Link to="/Counter">Counter</Link>
-          <br />
-          <Route path="/" exact component={Home}></Route>
-          <Route path="/Counter" component={Counter}></Route>
-        </>
-      </ConnectedRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <ConnectedRouter history={history}>
+          <>
+            <Link to="/">Home</Link>
+            <Link to="/Counter">Counter</Link>
+            <br />
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/Counter" component={Counter}></Route>
+          </>
+        </ConnectedRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
