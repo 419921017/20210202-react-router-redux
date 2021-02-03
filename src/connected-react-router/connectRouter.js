@@ -15,6 +15,7 @@ function reducer(history) {
   };
   return function (state = initState, action) {
     switch (action.type) {
+      // 保存location改变后的路径
       case LOCATION_CHANGE:
         return {
           ...action.payload,
